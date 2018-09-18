@@ -5,6 +5,8 @@
  */
 package modele;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author slam
@@ -15,6 +17,7 @@ public class Courriel {
     private String objet;
     private String corps ;
     private Vente uneVente;
+    private ArrayList<PieceJointe> lesPieceJointes ;
     
     public Courriel() {
     }
@@ -67,6 +70,19 @@ public class Courriel {
     public void setUneVente(Vente uneVente) {
         this.uneVente = uneVente;
     }
+
+    public ArrayList<PieceJointe> getLesPieceJointes() {
+        return lesPieceJointes;
+    }
+
+    public void setLesPieceJointes(ArrayList<PieceJointe> lesPieceJointes) {
+        this.lesPieceJointes = lesPieceJointes;
+    }
     
-    
+    public void addUnePieceJointe(PieceJointe unePieceJointe){
+        if (lesPieceJointes == null){
+            lesPieceJointes = new ArrayList<PieceJointe>();
+        }
+        lesPieceJointes.add(unePieceJointe);
+    }
 }

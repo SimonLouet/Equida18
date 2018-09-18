@@ -5,6 +5,8 @@
  */
 package modele;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author slam
@@ -13,7 +15,8 @@ public class PieceJointe {
     private int id;
     private String chemin ;
     private String description;
-
+    private ArrayList<Courriel> lesCourriels ;
+    
     public PieceJointe() {
     }
 
@@ -49,6 +52,19 @@ public class PieceJointe {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public ArrayList<Courriel> getLesCourriels() {
+        return lesCourriels;
+    }
+
+    public void setLesCourriels(ArrayList<Courriel> lesCourriels) {
+        this.lesCourriels = lesCourriels;
+    }
     
-    
+    public void addUnCourriel(Courriel unCourriel){
+        if (lesCourriels == null){
+            lesCourriels = new ArrayList<Courriel>();
+        }
+        lesCourriels.add(unCourriel);
+    }
 }
