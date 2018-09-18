@@ -5,6 +5,8 @@
  */
 package modele;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Zakina
@@ -15,6 +17,7 @@ public class Vente {
     private String dateDebutVente;
     private CategVente uneCategVente;
     private Lieu unLieu;
+    private ArrayList<Courriel> lesCourriels ;
     
     public Vente() {
     }
@@ -64,7 +67,20 @@ public class Vente {
     public void setUnLieu(Lieu unLieu) {
         this.unLieu = unLieu;
     }
+
+    public ArrayList<Courriel> getLesCourriels() {
+        return lesCourriels;
+    }
+
+    public void setLesCourriels(ArrayList<Courriel> lesCourriels) {
+        this.lesCourriels = lesCourriels;
+    }
     
-    
+    public void addUnCourriel(Courriel unCourriel){
+        if (lesCourriels == null){
+            lesCourriels = new ArrayList<Courriel>();
+        }
+        lesCourriels.add(unCourriel);
+    }
     
 }

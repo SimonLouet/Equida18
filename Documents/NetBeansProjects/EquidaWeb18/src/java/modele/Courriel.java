@@ -14,7 +14,8 @@ public class Courriel {
     private String date ;
     private String objet;
     private String corps ;
-
+    private Vente uneVente;
+    
     public Courriel() {
     }
 
@@ -57,6 +58,14 @@ public class Courriel {
 
     public void setCorps(String corps) {
         this.corps = corps;
+    }
+
+    public Vente getUneVente() {
+        return uneVente;
+    }
+
+    public void setUneVente(Vente uneVente) {
+        this.uneVente = uneVente;
     }
     
     
