@@ -15,6 +15,18 @@ public class Courriel {
     private String objet;
     private String corps ;
 
+    public Courriel() {
+    }
+
+    public Courriel(int id, String date, String objet, String corps) {
+        this.id = id;
+        this.date = date;
+        this.objet = objet;
+        this.corps = corps;
+    }
+
+    
+    
     public int getId() {
         return id;
     }
