@@ -14,7 +14,8 @@ public class Vente {
     private String nom;
     private String dateDebutVente;
     private CategVente uneCategVente;
-
+    private Lieu unLieu;
+    
     public Vente() {
     }
 
@@ -54,6 +55,14 @@ public class Vente {
 
     public void setUneCategVente(CategVente uneCategVente) {
         this.uneCategVente = uneCategVente;
+    }
+
+    public Lieu getUnLieu() {
+        return unLieu;
+    }
+
+    public void setUnLieu(Lieu unLieu) {
+        this.unLieu = unLieu;
     }
     
     

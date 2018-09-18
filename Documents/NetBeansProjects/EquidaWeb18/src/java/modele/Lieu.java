@@ -5,6 +5,8 @@
  */
 package modele;
 
+import java.util.ArrayList;
+
 /**
  *
  * @author Simon Louet
@@ -14,7 +16,7 @@ public class Lieu {
     private String ville ;
     private int nbBoxes;
     private String commentaire ;
-    
+    private ArrayList<Vente> lesVentes ;
     
     public Lieu() {
     }
@@ -50,5 +52,19 @@ public class Lieu {
     public void setCommentaire(String commentaire) {
         this.commentaire = commentaire;
     }
+
+    public ArrayList<Vente> getLesVentes() {
+        return lesVentes;
+    }
+
+    public void setLesVentes(ArrayList<Vente> lesVentes) {
+        this.lesVentes = lesVentes;
+    }
     
+    public void addUneVente(Vente uneVente){
+        if (lesVentes == null){
+            lesVentes = new ArrayList<Vente>();
+        }
+        lesVentes.add(uneVente);
+    }
 }
