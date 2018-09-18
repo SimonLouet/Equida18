@@ -21,6 +21,13 @@ public class Lieu {
     public Lieu() {
     }
 
+    public Lieu(int id, String ville, int nbBoxes, String commentaire) {
+        this.id = id;
+        this.ville = ville;
+        this.nbBoxes = nbBoxes;
+        this.commentaire = commentaire;
+    }
+
     public int getId() {
         return id;
     }
