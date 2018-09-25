@@ -7,6 +7,7 @@ package servlets;
 
 import database.Utilitaire;
 import database.VenteDAO;
+import database.CategVenteDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -18,7 +19,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Client;
 import modele.Vente;
-
+import modele.CategVente;
 /**
  *
  * @author Zakina
@@ -87,8 +88,18 @@ public class ServletVentes extends HttpServlet {
           
         if(url.equals("/EquidaWeb18/ServletVentes/listerLesVentes"))
         {  
-            ArrayList<Vente> lesVentes = VenteDAO.getLesVentes(connection);
+            String codeCat = (String)request.getParameter("codeCat");
+            ArrayList<Vente> lesVentes;
+            ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
+            if(codeCat == null| codeCat == ""){
+                lesVentes = VenteDAO.getLesVentes(connection);
+            }else{
+                lesVentes = VenteDAO.getLesVentes(connection,codeCat);
+                
+            }
             request.setAttribute("pLesVentes", lesVentes);
+            request.setAttribute("pLesCategVentes", lesCategVentes);
+            
             getServletContext().getRequestDispatcher("/vues/ventes/listerLesVentes.jsp").forward(request, response);
         }
         

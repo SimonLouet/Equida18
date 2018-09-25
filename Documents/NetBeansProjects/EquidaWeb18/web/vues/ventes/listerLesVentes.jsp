@@ -6,6 +6,7 @@
 
 <%@page import="java.util.ArrayList"%>
 <%@page import="modele.Vente"%>
+<%@page import="modele.CategVente"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -18,13 +19,34 @@
         <h1>LISTE DES VENTES</h1>
          <%
         ArrayList<Vente> lesVentes = (ArrayList)request.getAttribute("pLesVentes");
+        ArrayList<CategVente> lesCategVentes = (ArrayList)request.getAttribute("pLesCategVentes");
         %>
+        
+        <form class="form-inline" action="listerLesVentes" method="GET">
+            <label for="codeCat">Categorie : </label>
+            <select name="codeCat" size="1">
+                <option value=''>Toutes les Ventes
+                <%
+                for(int i = 0; i < lesCategVentes.size();i++)
+                {
+                    CategVente uneCategVente = lesCategVentes.get(i);
+                    out.print("<option value='");
+                    out.print(uneCategVente.getCode());
+                    out.print("'>");
+                    out.print(uneCategVente.getLibelle());
+                }
+                %>
+            </select>
+            
+            <input type="submit" value="Filtrer" />
+        </form>
         <table  class="table table-bordered table-striped table-condensed">  
             <thead>
                 <tr>             
                     <th>id</th>
                     <th>nom</th>
                     <th>date début</th>
+                    <th>ville</th>
                     <th>catégorie</th>  
                     <th></th>
             <br>
@@ -49,7 +71,7 @@
                         out.println("<td>");
                         out.println(uneVente.getDateDebutVente());
                         out.println("</td>");
-
+                        
                         out.println("<td>");
                         out.println(uneVente.getUneCategVente().getLibelle());
                         out.println("</td>");

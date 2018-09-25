@@ -66,6 +66,43 @@ public class VenteDAO {
     } 
     
     /* @author Zakina - 22/06/2017
+    /* Méthode permettant de lister toutes les ventes avec un certain codeCateg, triées par date décroissante.
+    /* Pour chaque vente, on récupère aussi sa catégorie.
+    /* La liste des vente est stockée dans une ArrayList
+    */
+    public static ArrayList<Vente>  getLesVentes(Connection connection, String codeCateg){      
+        ArrayList<Vente> lesVentes = new  ArrayList<Vente>();
+        try
+        {
+            //preparation de la requete     
+            requete=connection.prepareStatement("select * from vente, CategVente where codeCategVente=code AND codeCategVente= ? order by dateDebut desc");          
+            requete.setString(1, codeCateg);
+            //executer la requete
+            rs=requete.executeQuery();
+            
+            //On hydrate l'objet métier Client avec les résultats de la requête
+            while ( rs.next() ) {  
+                Vente uneVente = new Vente();
+                uneVente.setId(rs.getInt("id"));
+                uneVente.setNom(rs.getString("nom"));
+                uneVente.setDateDebutVente(rs.getString("dateDebut"));
+                
+                CategVente uneCateg = new CategVente();
+                uneCateg.setCode(rs.getString("code"));  // on aurait aussi pu prendre CodeCateg
+                uneCateg.setLibelle(rs.getString("libelle"));
+                
+                uneVente.setUneCategVente(uneCateg);
+                lesVentes.add(uneVente);
+            }
+        }   
+        catch (SQLException e) 
+        {
+            e.printStackTrace();
+        }
+        return lesVentes ;    
+    } 
+    
+    /* @author Zakina - 22/06/2017
     /* Méthode permettant de lister les clients interessés par la catégorie de la vente selectionnée (passée en paramètre de la méthode)
     /* Pour chaque client, on récupère aussi le nom de son pays
     /* La liste des clients est stockée dans une ArrayList
