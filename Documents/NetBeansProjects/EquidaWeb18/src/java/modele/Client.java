@@ -19,16 +19,19 @@ public class Client {
     private String rue;
     private String copos ;
     private String ville;
+    private String mail;
     private Pays unPays ;
     private ArrayList<CategVente> lesCategVentes ;
 
     public Client() {
     }
 
-    public Client(int id, String nom, String prenom) {
+    public Client(int id, String nom, String prenom,String copos,String mail) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
+        this.copos = copos;
+        this.mail = mail;
     }
 
     public int getId() {
@@ -79,6 +82,14 @@ public class Client {
         this.ville = ville;
     }
 
+    public String getMail() {
+        return mail;
+    }
+
+    public void setMail(String mail) {
+        this.mail = mail;
+    }
+    
     public Pays getUnPays() {
         return unPays;
     }

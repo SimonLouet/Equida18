@@ -25,7 +25,9 @@
                     <th>id</th>
                     <th>nom</th>
                     <th>prenomt</th>
-                    <th>pays</th>                
+                    <th>pays</th>
+                    <th>Code Postal</th> 
+                    <th>E-mail</th> 
             <br>
             <br>
                 </tr>
@@ -52,7 +54,14 @@
                         out.println("<td>");
                         out.println(unClient.getUnPays().getNom());
                         out.println("</td>");
-                               
+                        
+                        out.println("<td>");
+                        out.println(unClient.getCopos());
+                        out.println("</td>");
+                        
+                        out.println("<td>");
+                        out.println(unClient.getMail());
+                        out.println("</td>");
                     }
                     %>
                 </tr>

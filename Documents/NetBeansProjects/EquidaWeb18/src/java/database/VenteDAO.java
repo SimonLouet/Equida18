@@ -88,6 +88,8 @@ public class VenteDAO {
                 unClient.setId(rs.getInt("id"));
                 unClient.setNom(rs.getString("nom"));
                 unClient.setPrenom(rs.getString("prenom"));
+                unClient.setCopos(rs.getString("copos"));
+                unClient.setMail(rs.getString("mail"));
                 
                 Pays p = new Pays();
                 p.setCode(rs.getString("codePays"));
