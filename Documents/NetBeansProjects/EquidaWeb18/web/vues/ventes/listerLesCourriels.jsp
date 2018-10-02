@@ -73,5 +73,6 @@
                 </tr>
             </tbody>
         </table>
+        <a href ='../ServletVentes/listerLesVentes'> Retour</a>
     </body>
 </html>

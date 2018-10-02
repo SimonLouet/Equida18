@@ -17,6 +17,7 @@
     </head>
     <body>
         <h1>LISTE DES VENTES</h1>
+        
          <%
         ArrayList<Vente> lesVentes = (ArrayList)request.getAttribute("pLesVentes");
         ArrayList<CategVente> lesCategVentes = (ArrayList)request.getAttribute("pLesCategVentes");
@@ -87,5 +88,6 @@
                 </tr>
             </tbody>
         </table>
+        <a href ='../'> Retour</a>
     </body>
 </html>

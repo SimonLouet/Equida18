@@ -4,7 +4,7 @@
     Author     : Zakina
 --%>
 
-<%@page import="modele.Client"%>
+<%@page import="modele.Acheteur"%>
 <%@page import="java.util.ArrayList"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -12,12 +12,12 @@
 <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         
-        <title>LISTE LES CLIENTS POUR UNE CATEGORIE DE VENTE</title>
+        <title>LISTE DES ACHETEUR </title>
     </head>
     <body>
-        <h1>LISTE DES CLIENTS POUR UNE CATEGORIE DE VENTE</h1>
+        <h1>LISTE DES ACHETEUR </h1>
          <%
-        ArrayList<Client> lesClients = (ArrayList)request.getAttribute("pLesClients");
+        ArrayList<Acheteur> lesAcheteurs = (ArrayList)request.getAttribute("pLesAcheteurs");
         %>
         <table  class="table table-bordered table-striped table-condensed">  
             <thead>
@@ -35,38 +35,38 @@
             <tbody>
                 <tr>
                     <%
-                    for(int i = 0; i < lesClients.size();i++)
+                    for(int i = 0; i < lesAcheteurs.size();i++)
                     {
                         
-                        Client unClient = lesClients.get(i);
+                        Acheteur unAcheteur = lesAcheteurs.get(i);
                         out.println("<tr><td>");
-                        out.println(unClient.getId());
+                        out.println(unAcheteur.getId());
                         out.println("</a></td>");
 
                          out.println("<td>");
-                         out.println(unClient.getNom());
+                         out.println(unAcheteur.getNom());
                         out.println("</td>");
 
                         out.println("<td>");
-                        out.println(unClient.getPrenom());
+                        out.println(unAcheteur.getPrenom());
                         out.println("</td>");
 
                         out.println("<td>");
-                        out.println(unClient.getUnPays().getNom());
+                        out.println(unAcheteur.getUnPays().getNom());
                         out.println("</td>");
                         
                         out.println("<td>");
-                        out.println(unClient.getCopos());
+                        out.println(unAcheteur.getCopos());
                         out.println("</td>");
                         
                         out.println("<td>");
-                        out.println(unClient.getMail());
+                        out.println(unAcheteur.getMail());
                         out.println("</td>");
                     }
                     %>
                 </tr>
             </tbody>
         </table>
-        <a href ='../ServletVentes/listerLesVentes'> Retour</a>
+                 <a href ='../'> Retour</a>
     </body>
 </html>

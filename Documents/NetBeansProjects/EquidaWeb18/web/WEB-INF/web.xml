@@ -46,16 +46,21 @@
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletVentes</servlet-name>
+        <url-pattern>/ServletVentes/listerLesVendeurs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletVentes</servlet-name>
+        <url-pattern>/ServletVentes/listerLesAcheteurs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ServletVentes</servlet-name>
         <url-pattern>/ServletVentes/listerLesClients</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>ServletClient</servlet-name>
         <url-pattern>/ServletClient/ajouterClient</url-pattern>
     </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>ServletCourriel</servlet-name>
-        <url-pattern>/ServletCourriel/test</url-pattern>
-    </servlet-mapping>
+    
     <session-config>
         <session-timeout>
             30

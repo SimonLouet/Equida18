@@ -6,6 +6,8 @@
 package servlets;
 
 import database.Utilitaire;
+import database.VendeurDAO;
+import database.AcheteurDAO;
 import database.VenteDAO;
 import database.CategVenteDAO;
 import database.CourrielDAO;
@@ -19,6 +21,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import modele.Client;
+import modele.Vendeur;
+import modele.Acheteur;
 import modele.Vente;
 import modele.Courriel;
 import modele.CategVente;
@@ -115,6 +119,28 @@ public class ServletVentes extends HttpServlet {
             ArrayList<Client> lesClients = VenteDAO.getLesClients(connection, codeCat);
             request.setAttribute("pLesClients", lesClients);
             getServletContext().getRequestDispatcher("/vues/ventes/listerLesClients.jsp").forward(request, response);
+        }
+        
+        if(url.equals("/EquidaWeb18/ServletVentes/listerLesVendeurs"))
+        {  
+            System.out.println("DANS LISTER LES CLIENTS");
+           
+            
+            ArrayList<Vendeur> lesVendeurs = VendeurDAO.getLesVendeurs(connection);
+            
+            request.setAttribute("pLesVendeurs", lesVendeurs);
+            getServletContext().getRequestDispatcher("/vues/ventes/listerLesVendeurs.jsp").forward(request, response);
+        }
+        
+         if(url.equals("/EquidaWeb18/ServletVentes/listerLesAcheteurs"))
+        {  
+            System.out.println("DANS LISTER LES CLIENTS");
+           
+            
+            ArrayList<Acheteur> lesAcheteurs = AcheteurDAO.getLesAcheteurs(connection);
+            
+            request.setAttribute("pLesAcheteurs", lesAcheteurs);
+            getServletContext().getRequestDispatcher("/vues/ventes/listerLesAcheteurs.jsp").forward(request, response);
         }
         
         if(url.equals("/EquidaWeb18/ServletVentes/listerLesCourriel"))
