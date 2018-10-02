@@ -46,7 +46,6 @@
                     <th>id</th>
                     <th>nom</th>
                     <th>date début</th>
-                    <th>ville</th>
                     <th>catégorie</th>  
                     <th></th>
             <br>
@@ -80,7 +79,9 @@
                         out.println("Lister les clients interessés");
                         out.println("</td>");
                         
-                               
+                        out.println("<td><a href ='../ServletVentes/listerLesCourriel?codeVente="+ uneVente.getId()+ "'>");
+                        out.println("Lister les Couriels envoyés");
+                        out.println("</td>");       
                     }
                     %>
                 </tr>

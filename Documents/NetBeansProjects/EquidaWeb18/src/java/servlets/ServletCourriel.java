@@ -5,10 +5,12 @@
  */
 package servlets;
 
+import database.CategVenteDAO;
+import database.ClientDAO;
+import database.PaysDAO;
 import database.Utilitaire;
 import database.VenteDAO;
-import database.CategVenteDAO;
-import database.CourrielDAO;
+import formulaires.ClientForm;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
@@ -18,21 +20,21 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import modele.Client;
-import modele.Vente;
-import modele.Courriel;
 import modele.CategVente;
+import modele.Client;
+import modele.Pays;
+import modele.Vente;
+
 /**
  *
  * @author Zakina
- * Classe Servlet permettant d'executer les fonctionnalités relatives aux ventes :
+ * Servlet Client permettant d'excéuter les fonctionnalités relatives au clients
  * Fonctionnalités implémentées :
- *      lister les ventes
- *      lister les clients d'une vente passée en paramètre
+ *      ajouter un nouveau client
  */
-public class ServletVentes extends HttpServlet {
+public class ServletCourriel extends HttpServlet {
     
-     Connection connection ;
+    Connection connection ;
       
         
     @Override
@@ -41,8 +43,6 @@ public class ServletVentes extends HttpServlet {
         ServletContext servletContext=getServletContext();
         connection=(Connection)servletContext.getAttribute("connection");
     }
-    
-    
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -55,19 +55,19 @@ public class ServletVentes extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        //response.setContentType("text/html;charset=UTF-8");
-        //try (PrintWriter out = response.getWriter()) {
+        response.setContentType("text/html;charset=UTF-8");
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-            /*out.println("<!DOCTYPE html>");
+            out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ServletVentes</title>");            
+            out.println("<title>Servlet ServletCourriel</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ServletVentes at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ServletCourriel at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
-        }*/
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -79,55 +79,17 @@ public class ServletVentes extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
-    
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
- 
+       
         
-        String url = request.getRequestURI();
-        
-        // Récup et affichage par date décroissante de toutes les ventes   
-          
-        if(url.equals("/EquidaWeb18/ServletVentes/listerLesVentes"))
-        {  
-            String codeCat = (String)request.getParameter("codeCat");
-            ArrayList<Vente> lesVentes;
-            ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
-            if(codeCat == null| codeCat == ""){
-                lesVentes = VenteDAO.getLesVentes(connection);
-            }else{
-                lesVentes = VenteDAO.getLesVentes(connection,codeCat);
-                
-            }
-            request.setAttribute("pLesVentes", lesVentes);
-            request.setAttribute("pLesCategVentes", lesCategVentes);
+       String url = request.getRequestURI();
+       
+       if(url.equals("/EquidaWeb18/ServletCourriel/Lister"))
+        {                   
             
-            getServletContext().getRequestDispatcher("/vues/ventes/listerLesVentes.jsp").forward(request, response);
         }
-        
-        // Récup et affichage des clients interessés par une certaine catégorie de ventes
-        if(url.equals("/EquidaWeb18/ServletVentes/listerLesClients"))
-        {  
-            System.out.println("DANS LISTER LES CLIENTS");
-            String codeCat = (String)request.getParameter("codeCat");
-           
-            
-            ArrayList<Client> lesClients = VenteDAO.getLesClients(connection, codeCat);
-            request.setAttribute("pLesClients", lesClients);
-            getServletContext().getRequestDispatcher("/vues/ventes/listerLesClients.jsp").forward(request, response);
-        }
-        
-        if(url.equals("/EquidaWeb18/ServletVentes/listerLesCourriel"))
-        {  
-            String codeVente = (String)request.getParameter("codeVente");
-           
-            
-            ArrayList<Courriel> lesCourriels = CourrielDAO.getLesCourriels(connection, codeVente);
-            request.setAttribute("pLesCourriels", lesCourriels);
-            getServletContext().getRequestDispatcher("/vues/ventes/listerLesCourriels.jsp").forward(request, response);
-        }
-        
-        
     }
 
     /**
@@ -141,7 +103,33 @@ public class ServletVentes extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+               
+         /* Préparation de l'objet formulaire */
+        ClientForm form = new ClientForm();
+		
+        /* Appel au traitement et à la validation de la requête, et récupération du bean en résultant */
+        Client unClient = form.ajouterClient(request);
+        
+        /* Stockage du formulaire et de l'objet dans l'objet request */
+        request.setAttribute( "form", form );
+        request.setAttribute( "pClient", unClient );
+		
+        if (form.getErreurs().isEmpty()){
+            // Il n'y a pas eu d'erreurs de saisie, donc on renvoie la vue affichant les infos du client 
+            ClientDAO.ajouterClient(connection, unClient);
+            this.getServletContext().getRequestDispatcher("/vues/clientConsulter.jsp" ).forward( request, response );
+        }
+        else
+        { 
+		// il y a des erreurs. On réaffiche le formulaire avec des messages d'erreurs
+            ArrayList<Pays> lesPays = PaysDAO.getLesPays(connection);
+            request.setAttribute("pLesPays", lesPays);
+            
+            ArrayList<CategVente> lesCategVentes = CategVenteDAO.getLesCategVentes(connection);
+            request.setAttribute("pLesCategVente", lesCategVentes);
+           this.getServletContext().getRequestDispatcher("/vues/clientAjouter.jsp" ).forward( request, response );
+        }
+    
     }
 
     /**
@@ -152,9 +140,8 @@ public class ServletVentes extends HttpServlet {
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
-    
-  public void destroy(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
+    }// </editor-fold>
+ public void destroy(HttpServletRequest request, HttpServletResponse response)throws ServletException, IOException
     {
         try
         {
