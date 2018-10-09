@@ -14,8 +14,8 @@ import java.util.ArrayList;
 import modele.Lot;
 import modele.Cheval;
 import modele.TypeCheval;
-
-
+import modele.Participer;
+import modele.Course;
 /**
  *
  * @author Zakina
@@ -105,7 +105,24 @@ public class LotDAO {
                     uneMere.setSire(rm.getString("sire"));
                     unCheval.setMere(uneMere);
                 }
-                
+                requete=connection.prepareStatement("select * from Course,Participer where cou_id = course.id AND che_id = ?");          
+                requete.setString(1, rs.getString("id"));
+                //executer la requete
+                ResultSet rco=requete.executeQuery();
+                while ( rco.next() ) {  
+                    Course uneCourse = new Course();
+                    uneCourse.setId(rco.getInt("Course.id"));
+                    uneCourse.setLieu(rco.getString("lieu"));
+                    uneCourse.setNom(rco.getString("nom"));
+                    uneCourse.setDate(rco.getString("date"));
+                    
+                    Participer uneParticipation = new Participer();
+                    uneParticipation.setId(rco.getInt("Participer.id"));
+                    uneParticipation.setPlace(rco.getInt("place"));
+                    uneParticipation.setUneCourse(uneCourse);
+                    
+                    unCheval.addUneParticipation(uneParticipation);
+                }
                 
                 unLot.setCheval(unCheval);
                         

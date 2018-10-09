@@ -19,6 +19,7 @@ public class Cheval {
     private Cheval pere;
     private Cheval mere;
     private TypeCheval typeCheval;
+    private ArrayList<Participer> lesParticipation ;
     
     public Cheval() {
     }
@@ -90,6 +91,19 @@ public class Cheval {
     public void setTypeCheval(TypeCheval typeCheval) {
         this.typeCheval = typeCheval;
     }
+
+    public ArrayList<Participer> getLesParticipation() {
+        return lesParticipation;
+    }
+
+    public void setLesParticipation(ArrayList<Participer> lesParticipation) {
+        this.lesParticipation = lesParticipation;
+    }
     
-    
+    public void addUneParticipation(Participer uneParticipation){
+        if (lesParticipation == null){
+            lesParticipation = new ArrayList<Participer>();
+        }
+        lesParticipation.add(uneParticipation);
+    }
 }
